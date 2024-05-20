@@ -25,7 +25,7 @@ struct HourForeastRow: View {
             
             Spacer()
             
-            Text("\(Int(dayForecast?.tempC ?? 0 ))  \u{00B0}").font(.title).bold()
+            Text("\(Int( dayForecast?.tempC ?? 0 ))  \u{00B0}").font(.title).bold()
         }.padding(.trailing , 4).padding(.leading , 4).listRowBackground(Color.clear)
     }
 }

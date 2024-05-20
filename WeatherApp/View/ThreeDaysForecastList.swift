@@ -11,6 +11,7 @@ struct ThreeDaysForecastList: View {
     
     var forecastDays : [Forecastday]?
     var body: some View {
+        //NavigationView{
         List{
                 Section{
                     
@@ -23,6 +24,7 @@ struct ThreeDaysForecastList: View {
                     Text("3 Days Forecast").bold().font(.subheadline)
                 }
             }.scrollDisabled(true).scrollContentBackground(.hidden)
+       // }.scrollContentBackground(.hidden).listRowBackground(Color.clear).background(Color.clear)
 
     }
 }

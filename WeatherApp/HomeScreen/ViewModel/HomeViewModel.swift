@@ -41,7 +41,7 @@ class HomeViewModel: NSObject , ObservableObject , CLLocationManagerDelegate{
         if var forecastDays = weatherData?.forecast?.forecastday {
             print("enter 2")
             for index in 0..<forecastDays.count {
-                print("enter 3")
+                
                 prepareHours(forecastDay: &forecastDays[index])
             }
             print("enter 4")

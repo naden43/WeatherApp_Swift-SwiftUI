@@ -10,7 +10,7 @@ import CoreLocation
 
 struct DetailsForecastScreen: View {
     
-    //@ObservedObject var viewModel  = HomeViewModel(networkHandler: NetworkHandler.instance, manager: CLLocationManager())
+    @ObservedObject var viewModel  = HomeViewModel(networkHandler: NetworkHandler.instance, manager: CLLocationManager())
     
     var dayForecast : Forecastday?
     var body: some View {

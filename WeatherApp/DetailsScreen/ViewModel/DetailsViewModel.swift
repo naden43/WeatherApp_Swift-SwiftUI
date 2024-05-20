@@ -11,6 +11,7 @@ class DetailsViewModel : ObservableObject {
     
     @Published var dayForecast : Forecastday?
     
+    
     init(dayForecast: Forecastday) {
         self.dayForecast = dayForecast
     }

@@ -14,11 +14,6 @@ struct HourlyFourcastList: View {
     var body: some View {
         
         List(forecastList?.hour ?? [] , id: \.time){ item in
-            /*HourForeastRow()
-            HourForeastRow()
-            HourForeastRow()
-            HourForeastRow()
-            HourForeastRow()*/
             HourForeastRow(dayForecast: item)
             
             
