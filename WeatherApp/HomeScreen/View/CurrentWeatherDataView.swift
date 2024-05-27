@@ -13,19 +13,20 @@ struct CurrentWeatherDataView: View {
     var currentData : Current?
     var location : Location?
     var dayForecast : Forecastday?
+    var dataIsDark : Bool?
     var body: some View {
         
         VStack{
-            Text(location?.region ?? "").fontWeight(.bold)
+            Text(location?.name ?? "").foregroundColor((dataIsDark ?? false) ? .black : .white).fontWeight(.bold)
+                .font(.largeTitle)//.foregroundColor()
+            Text("\(Int(currentData?.tempC  ?? 0)) \u{00B0}").foregroundColor((dataIsDark ?? false) ? .black : .white).fontWeight(.bold)
                 .font(.largeTitle)
-            Text("\(Int(currentData?.tempC  ?? 0)) \u{00B0}").fontWeight(.bold)
-                .font(.largeTitle)
-            Text(currentData?.condition?.text ?? "clear")
+            Text(currentData?.condition?.text ?? "clear").foregroundColor((dataIsDark ?? false) ? .black : .white)
                 .font(.largeTitle)
             
             HStack{
-                Text("H: \(Int(dayForecast?.day?.maxtempC ?? 0 ))  \u{00B0}").padding(.trailing , 5).font(.title)
-                Text("L: \(Int(dayForecast?.day?.mintempC ?? 0))  \u{00B0}").font(.title)
+                Text("H: \(Int(dayForecast?.day?.maxtempC ?? 0 ))  \u{00B0}").foregroundColor((dataIsDark ?? false) ? .black : .white).padding(.trailing , 5).font(.title)
+                Text("L: \(Int(dayForecast?.day?.mintempC ?? 0))  \u{00B0}").foregroundColor((dataIsDark ?? false) ? .black : .white).font(.title)
             }
             
             let url = URL(string: "https:\(currentData?.condition?.icon ?? "")")
@@ -43,6 +44,6 @@ struct CurrentWeatherDataView: View {
     }
 }
 
-/*#Preview {
+#Preview {
     CurrentWeatherDataView()
-}*/
+}

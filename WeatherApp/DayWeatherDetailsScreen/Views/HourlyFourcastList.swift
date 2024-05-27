@@ -10,14 +10,14 @@ import SwiftUI
 struct HourlyFourcastList: View {
     
     var forecastList : Forecastday?
-    
+    var dataIsDark : Bool?
     var body: some View {
         
         List(forecastList?.hour ?? [] , id: \.time){ item in
-            HourForeastRow(dayForecast: item)
+            HourForeastRow(dayForecast: item , dataIsDark: dataIsDark)
             
             
-        }.scrollContentBackground(.hidden).background(Image("Day"))
+        }.scrollContentBackground(.hidden)
     }
 }
 

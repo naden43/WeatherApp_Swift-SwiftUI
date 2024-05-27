@@ -8,13 +8,21 @@
 import Foundation
 import CoreLocation
 import Combine
+import Reachability
 
 class HomeViewModel: NSObject , ObservableObject , CLLocationManagerDelegate{
     
     @Published var weatherData: WeatherData?
     var networkHandler: NetworkHandler?
     let manager : CLLocationManager?
-
+    
+    let reachability = try! Reachability()
+    
+    
+   
+    @Published var isConnected : Bool = false
+    @Published var backgoundImageName : String = "Day"
+    @Published var isDark : Bool?
     
     init(networkHandler: NetworkHandler, manager : CLLocationManager) {
         
@@ -22,11 +30,22 @@ class HomeViewModel: NSObject , ObservableObject , CLLocationManagerDelegate{
         self.networkHandler = networkHandler
         self.manager = manager
         super.init()
+        checkConnection()
         getPersmission()
      
-               // self?.loadData(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
         
+    }
+    
+    func checkConnection(){
+        switch reachability.connection    {
+            
+        case .unavailable:
+            isConnected = false
+        case .wifi , .cellular:
+            isConnected = true
+        
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -51,6 +70,30 @@ class HomeViewModel: NSObject , ObservableObject , CLLocationManagerDelegate{
         
     }
     
+    
+    func setTheme(){
+        
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        guard let lastUpdatedDate  = dateFormater.date(from: weatherData?.current?.lastUpdated ?? "") else {return}
+        dateFormater.dateFormat = "HH"
+        let lastUodatedStr = dateFormater.string(from: lastUpdatedDate)
+        guard let lastTime = Int(lastUodatedStr) else {return}
+
+        print("\(lastTime) kmbhbjhb")
+        if (lastTime < 17  && (lastTime > 6)) {
+            backgoundImageName = "Day"
+            
+            isDark = true
+        }
+        else {
+            backgoundImageName = "Night"
+            isDark = false
+        }
+        
+    }
     
     func prepareHours(forecastDay : inout Forecastday){
         
@@ -161,6 +204,7 @@ class HomeViewModel: NSObject , ObservableObject , CLLocationManagerDelegate{
                 self?.weatherData = weatherData
                 self?.prepareData()
                 self?.prepareHourlyData()
+                self?.setTheme()
             }
         }
     }

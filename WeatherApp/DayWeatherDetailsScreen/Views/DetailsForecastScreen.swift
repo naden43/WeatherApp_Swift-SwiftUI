@@ -10,12 +10,15 @@ import CoreLocation
 
 struct DetailsForecastScreen: View {
     
-    @ObservedObject var viewModel  = HomeViewModel(networkHandler: NetworkHandler.instance, manager: CLLocationManager())
+    //@EnvironmentObject var viewModel : HomeViewModel
     
     var dayForecast : Forecastday?
+    var backgroundImage : String?
+    var dataIsDark : Bool?
     var body: some View {
-        
-        HourlyFourcastList(forecastList: dayForecast)
+        VStack{
+            HourlyFourcastList(forecastList: dayForecast , dataIsDark: dataIsDark)
+        }.background(Image(backgroundImage ?? ""))
     }
 }
 
